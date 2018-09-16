@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>TO's Favicon App</title>
+    <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
+        rel="stylesheet">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+	<body>
+		
+		<h1>Find a Favicon</h1>
+		<form action="#" th:action="@{/favicon}" th:object="${faviconDTO}" method="post">
+		   	<p>Site: <input type="text" th:field="*{site}" /></p>		        
+		    <p><input type="submit" value="Submit" /></p>
+		    
+		    <th:block th:if="${faviconDTO.errorMessage}">
+		    	<p th:text="'An error occurred: ' + ${faviconDTO.errorMessage}" th:style="'color:red'"/>
+			</th:block>
+			<th:block th:unless="${faviconDTO.errorMessage}">
+			    <th:block th:if="${faviconDTO.faviconUrl}">
+			    	<p th:text="'Favicon URL: '" />
+			    	<a th:href="${faviconDTO.faviconUrl}"><span th:text="${faviconDTO.faviconUrl}"/></a>
+			    	<p th:text="'Favicon Image: '" />
+			    	<img th:src="${faviconDTO.faviconUrl}"/>
+			    </th:block>
+			    <p th:if="${faviconDTO.fetchedFromDB}" th:text="'* Favicon found in database with id: ' + ${faviconDTO.databaseId}" />
+		    </th:block>		    
+		    <p>
+		    <em>- Tania Oliveira</em>
+		    </p>
+		</form>
+	</body>
+</html>
